@@ -1,0 +1,959 @@
+generated: '2026-08-05'
+method: searched
+source: https://support.withclutch.com/support/solutions (Clutch public knowledge base, Data Exports articles)
+summary: Clutch publishes field-level data dictionaries for the five daily datasets it delivers to credit
+  union customers over SFTP or the File Transfer API. This artifact captures those dictionaries verbatim
+  from the public knowledge base and derives the entity graph that links them. No OpenAPI is published,
+  so the graph is built from the documented identifier fields rather than from spec $refs.
+delivery:
+  channels:
+  - SFTP
+  - File Transfer API
+  format: csv, pipe-delimited, double-quoted
+  cadence: generated daily at 11:00 UTC
+  retention: one week
+  files_per_dataset: two CSVs — past 1 day and past 30 days, identical field structure
+  reference: https://support.withclutch.com/support/solutions/articles/153000254486-data-exports-api-vs-sftp-delivery
+  api_reference:
+    url: https://support.withclutch.com/support/solutions/articles/153000248800
+    http_status: 302
+    access: customer support login required
+entities:
+- id: lending
+  name: Lending
+  primary_key: events_funnel_id
+  field_count: 59
+  source: https://support.withclutch.com/support/solutions/articles/153000248797-data-exports-lending
+- id: account_opening
+  name: Account Opening
+  primary_key: application_id
+  field_count: 64
+  source: https://support.withclutch.com/support/solutions/articles/153000248799-data-exports-account-opening
+- id: funding
+  name: Funding
+  primary_key: payment_transaction_id
+  field_count: 12
+  source: https://support.withclutch.com/support/solutions/articles/153000248795-data-exports-funding
+- id: nacha
+  name: NACHA
+  primary_key: NACHA_FILE_ELIGIBLE_TRANSACTION_ID
+  field_count: 24
+  source: https://support.withclutch.com/support/solutions/articles/153000258789-data-exports-nacha
+- id: hal
+  name: HAL
+  primary_key: hal_id
+  field_count: 10
+  source: https://support.withclutch.com/support/solutions/articles/153000258790-data-exports-hal
+relationships:
+- from: lending
+  to: hal
+  type: has_many
+  via: application_id
+  evidence: hal.application_id — "Matches the one in the lending export."
+- from: account_opening
+  to: funding
+  type: has_many
+  via: application_id
+  evidence: both datasets carry application_id for the same account opening application
+- from: account_opening
+  to: funding
+  type: has_one
+  via: account_id
+  evidence: account_id is documented in both account_opening and funding
+- from: funding
+  to: nacha
+  type: has_many
+  via: APPLICATION_ID
+  evidence: nacha.APPLICATION_ID is the application identifier UUID carried through funding
+- from: lending
+  to: account_opening
+  type: belongs_to
+  via: user_id
+  evidence: user_id is a UUID for the unique applicant in both datasets
+- from: lending
+  to: account_opening
+  type: belongs_to
+  via: session_id
+  evidence: session_id represents a unique user session in both datasets
+shared_identifiers:
+- field: application_id
+  datasets:
+  - lending
+  - account_opening
+  - funding
+  - hal
+  - nacha (APPLICATION_ID)
+- field: user_id
+  datasets:
+  - lending
+  - account_opening
+  - hal
+- field: session_id
+  datasets:
+  - lending
+  - account_opening
+- field: account_id
+  datasets:
+  - account_opening
+  - funding
+- field: member_nr
+  datasets:
+  - lending
+  - account_opening
+  - funding
+  - nacha (MEMBER_NUMBER)
+- field: application_nr
+  datasets:
+  - lending
+  - hal
+  note: loan number in the LOS
+json_schema:
+  note: JSON Schema 2020-12 derived per dataset
+  files:
+  - withclutch-lending.json
+  - withclutch-account-opening.json
+  - withclutch-funding.json
+  - withclutch-nacha.json
+  - withclutch-hal.json
+  index: json-schema/_index.yml
+datasets:
+- id: lending
+  name: Lending
+  description: Daily export of consumer loan origination sessions and applications, one row per funnel
+    record.
+  primary_key: events_funnel_id
+  format: csv (pipe-delimited, double-quoted)
+  cadence: daily
+  source: https://support.withclutch.com/support/solutions/articles/153000248797-data-exports-lending
+  field_count: 59
+  fields:
+  - name: session_id
+    type: string
+    description: 'String: an ID representing a unique user session. A session lasts up to 4 hours, or
+      ends after 15 minutes of inactivity.'
+    example: '123456789'
+    required: true
+  - name: application_id
+    type: string
+    description: 'String: an ID representing a unique application sent to the LOS.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+    required: false
+  - name: user_id
+    type: string
+    description: 'String: a UUID representing a unique user (the main applicant).'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+    required: false
+  - name: applicant_name
+    type: string
+    description: 'String: the main applicant''s full name.'
+    example: Jane Doe
+    required: false
+  - name: applicant_email
+    type: string
+    description: 'String: the main applicant''s email address.'
+    example: jane.doe@example.com
+    required: false
+  - name: user_phone
+    type: number
+    description: 'Number: the main applicant''s phone number.'
+    example: '1234567891'
+    required: false
+  - name: user_fico_score_range
+    type: string
+    description: 'String: the range in which the main applicant''s FICO score falls.'
+    example: 450-500
+    required: false
+  - name: user_income_range
+    type: string
+    description: 'String: the range in which the main applicant''s self-declared annual income falls.'
+    example: 100,000-150,000
+    required: false
+  - name: applicant_address
+    type: string
+    description: 'String: the main applicant''s address.'
+    example: 123 Main St
+    required: false
+  - name: applicant_city
+    type: string
+    description: 'String: the main applicant''s city.'
+    example: San Francisco
+    required: false
+  - name: applicant_state
+    type: string
+    description: 'String: the main applicant''s state.'
+    example: CA
+    required: false
+  - name: applicant_zip_code
+    type: string
+    description: 'String: the main applicant''s zip code.'
+    example: '12345'
+    required: false
+  - name: applicant_employer
+    type: string
+    description: 'String: the main applicant''s employer name.'
+    example: Example Employer Inc.
+    required: false
+  - name: applicant_job_title
+    type: string
+    description: 'String: the main applicant''s job title.'
+    example: Customer Success Manager
+    required: false
+  - name: application_category
+    type: string
+    description: 'String: the loan type the user applied for. Null if the application was dropped before
+      selection.'
+    example: VEHICLE ; PERSONAL ; CREDIT CARD
+    required: false
+  - name: credit_structure
+    type: string
+    description: 'String: whether the application is for a loan or a line of credit.'
+    example: LOAN ; LINE OF CREDIT
+    required: false
+  - name: application_mode
+    type: string
+    description: 'String: whether the application is new or a refinance of an existing deal.'
+    example: NEW ; REFINANCE
+    required: false
+  - name: collateral_type
+    type: string
+    description: 'String: the kind of collateral being used. Null if none.'
+    example: NULL ; AUTO ; MOTORCYCLE ; CHECKING ACCOUNT
+    required: false
+  - name: application_nr
+    type: number
+    description: 'Number: the loan number in the LOS.'
+    example: '1234'
+    required: false
+  - name: application_amnt
+    type: number
+    description: 'Number: the amount the user applied for.'
+    example: $10,000.00
+    required: false
+  - name: experience_started_at
+    type: timestamp
+    description: 'Timestamp: date and time when the application started.'
+    example: '2024-03-07 18:08:32.765'
+    required: true
+  - name: user_authenticated_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user authenticated in the portal. Null if they didn''t.'
+    example: '2024-03-07 18:08:32.765'
+    required: false
+  - name: application_started_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user selected an application category. Null if they
+      didn''t.'
+    example: '2024-03-07 18:08:32.765'
+    required: false
+  - name: application_submitted_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user submitted the application. Null if they didn''t.'
+    example: '2024-03-07 18:08:32.765'
+    required: false
+  - name: application_confirmed_at
+    type: timestamp
+    description: 'Timestamp: date and time when the LOS received the application. Null if it didn''t.'
+    example: '2024-03-07 18:08:32.765'
+    required: false
+  - name: record_last_updated_at
+    type: timestamp
+    description: 'Timestamp: date and time when this record was last updated.'
+    example: '2024-03-07 18:08:32.765'
+    required: true
+  - name: utm_source
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: facebook
+    required: false
+  - name: utm_medium
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: ads
+    required: false
+  - name: utm_campaign
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: auto_refi_june_2024
+    required: false
+  - name: utm_content
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: group_a
+    required: false
+  - name: utm_term
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: loans
+    required: false
+  - name: accepted_tcpa_at
+    type: timestamp
+    description: 'Timestamp: date and time when the applicant accepted TCPA disclaimers.'
+    example: '2024-03-07 18:08:32.765'
+    required: false
+  - name: zest_score
+    type: number
+    description: 'Number: the main applicant''s Zest score for that application.'
+    example: '80'
+    required: false
+  - name: chance_of_approval_badge
+    type: string
+    description: 'String: the badge shown to the applicant while browsing that offer. Possible values:;
+      HIGH; LOW; MEDIUM; NOT_ENOUGH_INFORMATION'
+    example: MEDIUM
+    required: false
+  - name: gap_offered
+    type: boolean
+    description: 'Boolean: whether the user was offered the opportunity to express interest in GAP (protection
+      product).'
+    example: 'TRUE'
+    required: false
+  - name: gap_selected
+    type: boolean
+    description: 'Boolean: whether the user expressed interest in GAP (protection product).'
+    example: 'TRUE'
+    required: false
+  - name: mp_offered
+    type: boolean
+    description: 'Boolean: whether the user was offered the opportunity to express interest in mechanical
+      breakdown protection.'
+    example: 'TRUE'
+    required: false
+  - name: mp_selected
+    type: boolean
+    description: 'Boolean: whether the user expressed interest in mechanical breakdown protection.'
+    example: 'TRUE'
+    required: false
+  - name: pp_offered
+    type: boolean
+    description: 'Boolean: whether the user was offered the opportunity to express interest in payment
+      protection.'
+    example: 'TRUE'
+    required: false
+  - name: pp_selected
+    type: boolean
+    description: 'Boolean: whether the user expressed interest in payment protection.'
+    example: 'TRUE'
+    required: false
+  - name: member_nr
+    type: number
+    description: 'Number: the main applicant''s member number.'
+    example: '1234'
+    required: false
+  - name: citizenship
+    type: string
+    description: 'String: the applicant''s citizenship.'
+    example: US citizen
+    required: false
+  - name: referral_source
+    type: string
+    description: 'String: the referral source defined in the application''s URL. Matches what''s sent
+      to the LOS.'
+    example: lead-provider-name
+    required: false
+  - name: origin_module
+    type: string
+    description: 'String: the origin of the application. Possible values:; LENDING; ACCOUNT OPENINGThis
+      enables calculating cross-sell from account opening to lending.'
+    example: LENDING
+    required: true
+  - name: fraud_check_application_id
+    type: string
+    description: 'String: an identifier for the fraud check application. Can be null.'
+    example: JA-DwyIHO5cTHu9uqquWDy9
+    required: false
+  - name: fraud_check_entity_token
+    type: string
+    description: 'String: an identifier for the fraud check token. Can be null.'
+    example: J-KASoidfjs09SNGFKJ123
+    required: false
+  - name: gclid
+    type: string
+    description: 'String: Google click identifier, used in the URL for tracking purposes. Can be null.'
+    example: 123xyz
+    required: false
+  - name: disclosure_acknowledged_at
+    type: timestamp
+    description: 'Timestamp: date and time when the applicant accepted product-specific disclaimers (credit
+      cards and home equity).'
+    example: '2024-03-07 18:08:32.765'
+    required: false
+  - name: automobile_estimated_list_price
+    type: number
+    description: 'Number: for vehicle loans, the estimated list price of the vehicle.'
+    example: '37545.72'
+    required: false
+  - name: events_funnel_id
+    type: string
+    description: 'String: a UUID representing a unique record in the export. This is the primary key for
+      the table.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+    required: true
+  - name: application_origin
+    type: string
+    description: 'String: the application''s origin. Possible values:; original; loan_cross_sell; deposit_cross_sell;
+      remarketing'
+    example: original
+    required: true
+  - name: device_id
+    type: string
+    description: 'String: unique identifier for the device used to start the application session.'
+    example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    required: false
+  - name: authentication_method
+    type: string
+    description: 'String: the method used to authenticate the session that started the application. Possible
+      values: sso, password.'
+    example: sso
+    required: false
+  - name: gap_quote
+    type: decimal
+    description: 'Decimal: the GAP (Guaranteed Asset Protection) insurance premium amount quoted to the
+      customer, in dollars.'
+    example: '299.00'
+    required: false
+  - name: mp_quote
+    type: decimal
+    description: 'Decimal: the Mechanical Protection insurance premium amount quoted to the customer,
+      in dollars.'
+    example: '199.00'
+    required: false
+  - name: pp_quote
+    type: decimal
+    description: 'Decimal: the Payment Protection insurance premium amount quoted to the customer, in
+      dollars.'
+    example: '150.00'
+    required: false
+  - name: gap_plan
+    type: string
+    description: 'String: the GAP plan name/description from the LOS.'
+    example: GAP Plus
+    required: false
+  - name: mp_plan
+    type: string
+    description: 'String: the Mechanical Protection plan name/description from the LOS.'
+    example: PowerTrain Plus
+    required: false
+  - name: pp_plan
+    type: string
+    description: 'String: the Payment Protection plan name/description from the LOS.'
+    example: Basic Payment Shield
+    required: false
+- id: account_opening
+  name: Account Opening
+  description: Daily export of deposit/account opening applications, including fraud check, funding and
+    core booking milestones.
+  primary_key: application_id
+  format: csv (pipe-delimited, double-quoted)
+  cadence: daily
+  source: https://support.withclutch.com/support/solutions/articles/153000248799-data-exports-account-opening
+  field_count: 64
+  fields:
+  - name: application_id
+    type: string
+    description: 'String: a UUID that represents a unique account opening application.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: applicant_id
+    type: string
+    description: 'String: a UUID that represents an applicant (not unique — user_id is the unique ID per
+      applicant).'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: account_nr
+    type: number
+    description: 'Number: the account number in core, if an account was created. Null if no account was
+      created.'
+    example: '300101234'
+  - name: applicant_name
+    type: string
+    description: 'String: applicant''s first and last name. Null if the user dropped off before identifying
+      themselves.'
+    example: Chris Coleman
+  - name: applicant_email
+    type: string
+    description: 'String: applicant''s email address. Null if the user dropped off before identifying
+      themselves.'
+    example: chris.coleman@example.com
+  - name: member_nr
+    type: number
+    description: 'Number: the user''s member number in core. Null if the user wasn''t an existing member
+      and didn''t finish the application.'
+    example: '400012345'
+  - name: applicant_phone
+    type: string
+    description: 'String: applicant''s phone number. Null if the user dropped off before identifying themselves.'
+    example: '2121234567'
+  - name: applicant_address
+    type: string
+    description: 'String: applicant''s address. Null if the user dropped off before identifying themselves.'
+    example: 123 Main St.
+  - name: applicant_zipCode
+    type: string
+    description: 'String: applicant''s zip code. Null if the user dropped off before identifying themselves.'
+    example: '12345'
+  - name: applicant_city
+    type: string
+    description: 'String: applicant''s city. Null if the user dropped off before identifying themselves.'
+    example: Rio de Janeiro
+  - name: applicant_state
+    type: string
+    description: 'String: applicant''s state. Null if the user dropped off before identifying themselves.'
+    example: CA
+  - name: applicant_employer
+    type: string
+    description: 'String: applicant''s employer. Null if the user dropped off before identifying themselves.'
+    example: Amazing Credit Union
+  - name: applicant_job_title
+    type: string
+    description: 'String: applicant''s job title. Null if the user dropped off before identifying themselves.'
+    example: Member Service Representative
+  - name: eligibility_criteria
+    type: string
+    description: 'String: applicant''s eligibility criteria for membership. Null if the user dropped off
+      before identifying themselves.'
+    example: family
+  - name: eligibility_detail
+    type: string
+    description: 'String: details entered for the applicant''s eligibility criteria. Null if the user
+      dropped off before identifying themselves.'
+    example: Spouse - Name of family member
+  - name: product_name
+    type: string
+    description: 'String: the account name the user is applying for. Null if the user dropped off before
+      selecting one.'
+    example: Amazing Account Plus
+  - name: product_type
+    type: string
+    description: 'String: account type the user is applying for. Null if the user dropped off before selecting
+      one.'
+    example: savings ; certificate ; checking
+  - name: is_new_member
+    type: boolean
+    description: 'Boolean: true if the applicant was an existing member when the application started,
+      false if not.'
+    example: true ; false
+  - name: funding_type
+    type: string
+    description: 'String: the funding method the applicant chose:; CREDIT_CARD: credit card; INTERNAL_ACCOUNT:
+      transfer from an existing account at the credit union; ACH: transfer from an existing account at
+      another institution; CASH: cash; LFAO: funding performed by the credit union via internal transfer;
+      NULL: user dropped off before choosing a funding method'
+    example: CASH
+  - name: funding_amnt
+    type: number
+    description: 'Number: amount the user chose to fund the account with.'
+    example: $1000.00
+  - name: application_origin
+    type: string
+    description: 'String: where the application originated: branch portal or consumer portal.'
+    example: branch ; consumer
+  - name: branch_name
+    type: string
+    description: 'String: the name of the branch where the application is sitting.'
+    example: The Best Branch
+  - name: branch_user_id
+    type: number
+    description: 'Number: identifier of the employee responsible for the application.'
+    example: '1234'
+  - name: employee_name
+    type: string
+    description: 'String: first and last name of the employee responsible for the application.'
+    example: Nicholas Hinrichsen
+  - name: application_status
+    type: string
+    description: 'String: current status of the application. Possible values:; ACCEPTED: the application
+      was successful and an account has been opened; INITIATED: the application started and is still in
+      progress; FRAUD_VERIFICATION: the fraud management review is in progress; DENIED: the application
+      wasn''t allowed to proceed; CANCELLED: the application started but didn''t continue; ERROR: the
+      application had an issue; EXTERNAL_FUNDING_CONFIRMATION: waiting for funding confirmation; LOAN_FIRST_DRAFT:
+      a non-member submitted a loan application but an employee hasn''t triggered account opening yet'
+    example: ACCEPTED
+  - name: account_status
+    type: string
+    description: 'String: current status of the account. Possible values:; CREATED: the account has been
+      opened; CANCELLED: the application was cancelled before an account was created; PENDING: the account
+      opening process is still in progress'
+    example: PENDING
+  - name: funding_status
+    type: string
+    description: 'String: current status of the funding. Possible values:; COMPLETED: the account has
+      been funded; CANCELLED_OR_REFUNDED: the application was cancelled before an account was created;
+      CREATED / INITIATED / PENDING: funding is still in progress; ERROR: a funding issue occurred'
+    example: COMPLETED
+  - name: application_created_at
+    type: timestamp
+    description: 'Timestamp: date and time when the application started.'
+    example: '2024-03-07 18:08:32.765'
+  - name: account_created_at
+    type: timestamp
+    description: 'Timestamp: date and time when the account was created. Deprecated — use account_booked_to_core_at
+      instead.'
+    example: '2024-03-07 18:08:32.765'
+  - name: application_updated_at
+    type: timestamp
+    description: 'Timestamp: date and time when this record was last updated.'
+    example: '2024-03-07 18:08:32.765'
+  - name: received_AAN
+    type: boolean
+    description: 'Boolean: true if the applicant received an Adverse Action Notice, false if not.'
+    example: true ; false
+  - name: aan_created_at
+    type: timestamp
+    description: 'Timestamp: date and time when the Adverse Action Notice was sent.'
+    example: '2024-03-07 18:08:32.765'
+  - name: aan_reason
+    type: string
+    description: 'String: reason(s) the applicant received an Adverse Action Notice.'
+    example: Asset ownership history
+  - name: utm_source
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: facebook
+  - name: utm_medium
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: ads
+  - name: utm_campaign
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: auto_refi_june_2024
+  - name: utm_content
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: group_a
+  - name: utm_term
+    type: string
+    description: 'String: part of the URL used for tracking (must be present in the Clutch URL).'
+    example: loans
+  - name: funding_started_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user chose a funding method (null if they didn''t).'
+    example: '2024-03-07 18:08:32.765'
+  - name: funding_authorized_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user''s funding was authorized (null if it wasn''t).'
+    example: '2024-03-07 18:08:32.765'
+  - name: fraud_check_approved_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user was approved by the integrated fraud check flow
+      (null if not applicable).'
+    example: '2024-03-07 18:08:32.765'
+  - name: account_booked_to_core_at
+    type: timestamp
+    description: 'Timestamp: date and time when the user''s account was booked to core (null if not applicable).'
+    example: '2024-03-07 18:08:32.765'
+  - name: user_id
+    type: string
+    description: 'String: a UUID that represents a unique applicant.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: session_id
+    type: string
+    description: 'String: an ID representing a unique user session. A session lasts up to 4 hours, or
+      ends after 15 minutes of inactivity.'
+    example: '123456789'
+  - name: extra_fee
+    type: number
+    description: 'Number: the extra fee applied, if any. Can be null.'
+    example: '5.0'
+  - name: accepted_tcpa_at
+    type: timestamp
+    description: 'Timestamp: date and time when TCPA was accepted (null if it wasn''t).'
+    example: '2024-03-07 18:08:32.765'
+  - name: fraud_check_entity_token
+    type: string
+    description: 'String: an identifier for the fraud check token. Can be null.'
+    example: J-KASoidfjs09SNGFKJ123
+  - name: account_id
+    type: string
+    description: 'String: a UUID that represents a unique account.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: citizenship
+    type: string
+    description: 'String: applicant''s citizenship.'
+    example: US/American
+  - name: handoff_type
+    type: string
+    description: 'String: how the handoff for in-branch applications happened. Possible values: DIGITAL
+      or NON_DIGITAL.'
+    example: DIGITAL
+  - name: consent_type
+    type: string
+    description: 'String: how consent for account opening was given. Possible values: DIGITAL_CONSENT
+      (applicant clicked in the experience) or MANUAL_CONSENT (applicant gave consent to the employee
+      assisting them).'
+    example: DIGITAL_CONSENT
+  - name: account_features
+    type: array
+    description: 'Array: list of features the applicant added to the account.'
+    example: '["OVDT", "DBT"]'
+  - name: fraud_check_status
+    type: string
+    description: 'String: most up-to-date fraud check status. Possible values:; APPROVED; DENIED; PENDING_USER_ACTION;
+      REFER; ERROR'
+    example: APPROVED
+  - name: fraud_check_application_id
+    type: string
+    description: 'String: an identifier for the fraud check application. Can be null.'
+    example: JA-DwyIHO5cTHu9uqquWDy9
+  - name: promo_code
+    type: string
+    description: 'String: promotional code entered during the application for special offers.'
+    example: CHRISTMAS10
+  - name: had_manual_review
+    type: boolean
+    description: 'Boolean: whether a human had to intervene or manually review the application.'
+    example: true ; false
+  - name: had_step_up
+    type: boolean
+    description: 'Boolean: whether the user saw a step-up screen during the fraud check flow.'
+    example: true ; false
+  - name: fraud_check_started_at
+    type: timestamp
+    description: 'Timestamp: date and time when the fraud check was started.'
+    example: '2024-03-07 18:08:32.765'
+  - name: fraud_check_decision_made_at
+    type: timestamp
+    description: 'Timestamp: date and time when the fraud check was completed (application approved or
+      declined).'
+    example: '2024-03-07 18:08:32.765'
+  - name: device_id
+    type: string
+    description: 'String: unique identifier for the device used to start the application session.'
+    example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+  - name: authentication_method
+    type: string
+    description: 'String: the method used to authenticate the session that created the application. Possible
+      values: sso, password.'
+    example: sso
+  - name: referral_code
+    type: string
+    description: 'String: referral code entered during the application (e.g., member-get-member or employee
+      referral program). Null if no referral code was used.'
+    example: MGM-REF123
+  - name: fraud_check_tags
+    type: string
+    description: 'String: fraud check tags associated with the application, returned as a semicolon-separated
+      string. Null if no tags were returned.'
+    example: Main Applicant;Name Verified
+  - name: Employee
+    type: string
+    description: Count of Applications
+    example: Count of Accepted Applications
+- id: funding
+  name: Funding
+  description: Daily export of account funding transactions, including the funding provider and transaction
+    identifiers.
+  primary_key: payment_transaction_id
+  format: csv (pipe-delimited, double-quoted)
+  cadence: daily
+  source: https://support.withclutch.com/support/solutions/articles/153000248795-data-exports-funding
+  field_count: 12
+  fields:
+  - name: applicant_name
+    type: string
+    description: 'String: applicant''s first and last name. Null if the user dropped-off before identifying
+      themselves.'
+    example: Jane Doe
+  - name: member_nr
+    type: number
+    description: 'Number: the user''s member number in core. Null if the user wasn''t an existing member
+      and didn''t finish the application.'
+    example: '400012345'
+  - name: application_id
+    type: string
+    description: 'String: a uuid that represents an unique account opening application.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: account_id
+    type: string
+    description: 'String: a uuid that represents an unique account.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: transaction_funding_date
+    type: timestamp
+    description: 'Timestamp: date and time when the account was funded.'
+    example: '2024-03-07 18:08:32.765'
+  - name: account_type
+    type: string
+    description: 'String: account type that the user is applying for. Null if the user dropped-off before
+      selecting one.'
+    example: savings ; certificate ; checking
+  - name: funding_type
+    type: string
+    description: 'String:the funding method the applicant has chosen:CREDIT_CARD: credit card (Stripe);INTERNAL_ACCOUNT:
+      transfer from existing account at the CU;ACH: transfer from existing account in another institution
+      (Plaid);CASH: cash;LFAO: funding performed by the CU via transfer from the GL;NULL: user dropped-off
+      before choosing a funding method.'
+    example: CASH
+  - name: funding_amnt
+    type: number
+    description: 'Number: amount the user decided to use to fund the account.'
+    example: $1000.00
+  - name: provider_name
+    type: string
+    description: 'String: name of funding provider.'
+    example: stripe ; plaid
+  - name: payment_transaction_id
+    type: string
+    description: 'String: identifier used by the provider for the transaction.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: account_number
+    type: string
+    description: 'String: account number from Core.'
+    example: '2121234567'
+  - name: branch_name
+    type: string
+    description: 'String: the name of the branch where the application is sitting at.'
+    example: The Best Branch
+- id: nacha
+  name: NACHA
+  description: Daily export of generated NACHA ACH files and reversals with their eligible transactions.
+  primary_key: NACHA_FILE_ELIGIBLE_TRANSACTION_ID
+  format: csv (pipe-delimited, double-quoted)
+  cadence: daily
+  source: https://support.withclutch.com/support/solutions/articles/153000258789-data-exports-nacha
+  field_count: 24
+  fields:
+  - name: PARTNER_ID
+    type: string
+    description: 'String: partner identifier UUID.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: PARTNER_ALIAS
+    type: string
+    description: 'String: partner alias.'
+    example: mycreditunion
+  - name: NACHA_DOCUMENT_ID
+    type: string
+    description: 'String: document identifier UUID.'
+    example: 91290a0f-579d-4de0-824f-0a510a619a8c
+  - name: NACHA_FILE_NAME
+    type: string
+    description: 'String: NACHA .txt file name.'
+    example: 2026-01-21:20-00-35-nacha-file.txt
+  - name: NACHA_DOCUMENT_TYPE
+    type: string
+    description: 'String: NACHA or NACHA_REVERSAL.'
+    example: NACHA_REVERSAL
+  - name: IS_REVERSAL
+    type: boolean
+    description: 'Boolean: whether this is a reversal document.'
+    example: false / true
+  - name: ORIGINAL_NACHA_DOCUMENT_ID
+    type: string
+    description: 'String: the UUID identifier of the original document being reverted.'
+    example: 462d46f6-76a2-4d66-8716-4046ac0a6ee7
+  - name: REVERSAL_TYPE
+    type: string
+    description: 'String: PARTIAL, FILE, or null.'
+    example: FILE
+  - name: NACHA_GENERATED_AT
+    type: datetime
+    description: 'Datetime: when the file was created.'
+    example: '2026-01-21T20:00:35.990+00:00'
+  - name: NACHA_TRANSACTION_COUNT
+    type: integer
+    description: 'Integer: total transactions in the file.'
+    example: '3'
+  - name: NACHA_TOTAL_AMOUNT
+    type: decimal
+    description: 'Decimal(13,2): total amount in the file.'
+    example: '123.45'
+  - name: APPLICATION_ID
+    type: string
+    description: 'String: application identifier UUID.'
+    example: 5f2ff68e-fb74-4303-ad9a-2169cc0d543b
+  - name: APPLICATION_NUMERIC_ID
+    type: integer
+    description: 'Integer: human-readable application identifier.'
+    example: '1242840'
+  - name: APPLICATION_STATUS
+    type: string
+    description: 'String: application status.'
+    example: accepted
+  - name: APPLICATION_CREATED_AT
+    type: datetime
+    description: 'Datetime: when the application was created.'
+    example: '2026-01-21T18:08:12.815+00:00'
+  - name: MEMBER_NUMBER
+    type: number
+    description: 'Number: applicant''s member number.'
+    example: '292470'
+  - name: APPLICANT_FULL_NAME
+    type: string
+    description: 'String: applicant''s full name.'
+    example: John Doe
+  - name: APPLICANT_EMAIL
+    type: string
+    description: 'String: applicant''s email.'
+    example: john.doe@withclutch.com
+  - name: FUNDING_CHARGE_ID
+    type: string
+    description: 'String: funding charge identifier UUID.'
+    example: b176d767-6d34-4365-a9c2-ab4447a20bc8
+  - name: FUNDING_CHARGE_AMOUNT
+    type: decimal
+    description: 'Decimal(13,2): funding amount.'
+    example: '567.80'
+  - name: FUNDING_CHARGE_TYPE
+    type: string
+    description: 'String: funding charge type.'
+    example: ach
+  - name: FUNDING_CHARGE_STATUS
+    type: string
+    description: 'String: funding charge status.'
+    example: completed
+  - name: NACHA_FILE_ELIGIBLE_TRANSACTION_ID
+    type: string
+    description: 'String: eligible transaction identifier UUID.'
+    example: ef5b0ac5-9345-4f8a-ad06-8355192109dc
+  - name: NACHA_FILE_ELIGIBLE_TRANSACTION_CREATED_AT
+    type: datetime
+    description: 'Datetime: when the transaction was added to the NACHA file.'
+    example: '2026-01-21T18:10:08.260+00:00'
+- id: hal
+  name: HAL
+  description: Daily export of HAL AI lending assistant conversations, one row per applicant conversation.
+  primary_key: hal_id
+  format: csv (pipe-delimited, double-quoted)
+  cadence: daily
+  source: https://support.withclutch.com/support/solutions/articles/153000258790-data-exports-hal
+  field_count: 10
+  fields:
+  - name: hal_id
+    type: string
+    description: 'String: an ID that represents a unique conversation with an applicant.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: application_id
+    type: string
+    description: 'String: an ID that represents a unique application sent to the LOS. Matches the one
+      in the lending export.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: application_nr
+    type: number
+    description: 'Number: loan number in the LOS.'
+    example: '1234'
+  - name: user_id
+    type: string
+    description: 'String: a UUID that represents a unique user (main applicant). Matches the one in the
+      lending export.'
+    example: 0030dbe4-ead5-4543-afa1-61d24688b4ef
+  - name: applicant_name
+    type: string
+    description: 'String: the main applicant''s full name.'
+    example: John Doe
+  - name: user_phone
+    type: number
+    description: 'Number: the main applicant''s phone number.'
+    example: '1234567891'
+  - name: conversation_started_at
+    type: timestamp
+    description: 'Timestamp: date and time when the conversation started.'
+    example: '2024-03-07 18:08:32.765'
+  - name: hal_message_count
+    type: number
+    description: 'Number: number of messages sent by HAL to the applicant.'
+    example: '4'
+  - name: user_message_count
+    type: number
+    description: 'Number: number of messages sent by the applicant to HAL.'
+    example: '1'
+  - name: record_last_updated_at
+    type: timestamp
+    description: 'Timestamp: date and time when this record was last updated.'
+    example: '2024-03-07 18:08:32.765'

@@ -1,0 +1,476 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/json-schema/withclutch-account-opening.json",
+  "title": "Clutch Account Opening Data Export record",
+  "description": "Daily export of deposit/account opening applications, including fraud check, funding and core booking milestones. Derived from the published Clutch data dictionary at https://support.withclutch.com/support/solutions/articles/153000248799-data-exports-account-opening",
+  "x-provenance": {
+    "generated": "2026-08-05",
+    "method": "derived",
+    "source": "https://support.withclutch.com/support/solutions/articles/153000248799-data-exports-account-opening"
+  },
+  "type": "object",
+  "properties": {
+    "application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID that represents a unique account opening application."
+    },
+    "applicant_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID that represents an applicant (not unique \u2014 user_id is the unique ID per applicant)."
+    },
+    "account_nr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the account number in core, if an account was created. Null if no account was created."
+    },
+    "applicant_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's first and last name. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_email": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's email address. Null if the user dropped off before identifying themselves."
+    },
+    "member_nr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the user's member number in core. Null if the user wasn't an existing member and didn't finish the application."
+    },
+    "applicant_phone": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's phone number. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_address": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's address. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_zipCode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's zip code. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_city": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's city. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's state. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_employer": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's employer. Null if the user dropped off before identifying themselves."
+    },
+    "applicant_job_title": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's job title. Null if the user dropped off before identifying themselves."
+    },
+    "eligibility_criteria": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's eligibility criteria for membership. Null if the user dropped off before identifying themselves."
+    },
+    "eligibility_detail": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: details entered for the applicant's eligibility criteria. Null if the user dropped off before identifying themselves."
+    },
+    "product_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the account name the user is applying for. Null if the user dropped off before selecting one."
+    },
+    "product_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: account type the user is applying for. Null if the user dropped off before selecting one."
+    },
+    "is_new_member": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: true if the applicant was an existing member when the application started, false if not."
+    },
+    "funding_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the funding method the applicant chose:; CREDIT_CARD: credit card; INTERNAL_ACCOUNT: transfer from an existing account at the credit union; ACH: transfer from an existing account at another institution; CASH: cash; LFAO: funding performed by the credit union via internal transfer; NULL: user dropped off before choosing a funding method"
+    },
+    "funding_amnt": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: amount the user chose to fund the account with."
+    },
+    "application_origin": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: where the application originated: branch portal or consumer portal."
+    },
+    "branch_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the name of the branch where the application is sitting."
+    },
+    "branch_user_id": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: identifier of the employee responsible for the application."
+    },
+    "employee_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: first and last name of the employee responsible for the application."
+    },
+    "application_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: current status of the application. Possible values:; ACCEPTED: the application was successful and an account has been opened; INITIATED: the application started and is still in progress; FRAUD_VERIFICATION: the fraud management review is in progress; DENIED: the application wasn't allowed to proceed; CANCELLED: the application started but didn't continue; ERROR: the application had an issue; EXTERNAL_FUNDING_CONFIRMATION: waiting for funding confirmation; LOAN_FIRST_DRAFT: a non-member submitted a loan application but an employee hasn't triggered account opening yet"
+    },
+    "account_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: current status of the account. Possible values:; CREATED: the account has been opened; CANCELLED: the application was cancelled before an account was created; PENDING: the account opening process is still in progress"
+    },
+    "funding_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: current status of the funding. Possible values:; COMPLETED: the account has been funded; CANCELLED_OR_REFUNDED: the application was cancelled before an account was created; CREATED / INITIATED / PENDING: funding is still in progress; ERROR: a funding issue occurred"
+    },
+    "application_created_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the application started.",
+      "format": "date-time"
+    },
+    "account_created_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the account was created. Deprecated \u2014 use account_booked_to_core_at instead.",
+      "format": "date-time"
+    },
+    "application_updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when this record was last updated.",
+      "format": "date-time"
+    },
+    "received_AAN": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: true if the applicant received an Adverse Action Notice, false if not."
+    },
+    "aan_created_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the Adverse Action Notice was sent.",
+      "format": "date-time"
+    },
+    "aan_reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: reason(s) the applicant received an Adverse Action Notice."
+    },
+    "utm_source": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_medium": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_campaign": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_content": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_term": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "funding_started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user chose a funding method (null if they didn't).",
+      "format": "date-time"
+    },
+    "funding_authorized_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user's funding was authorized (null if it wasn't).",
+      "format": "date-time"
+    },
+    "fraud_check_approved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user was approved by the integrated fraud check flow (null if not applicable).",
+      "format": "date-time"
+    },
+    "account_booked_to_core_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user's account was booked to core (null if not applicable).",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID that represents a unique applicant."
+    },
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an ID representing a unique user session. A session lasts up to 4 hours, or ends after 15 minutes of inactivity."
+    },
+    "extra_fee": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the extra fee applied, if any. Can be null."
+    },
+    "accepted_tcpa_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when TCPA was accepted (null if it wasn't).",
+      "format": "date-time"
+    },
+    "fraud_check_entity_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an identifier for the fraud check token. Can be null."
+    },
+    "account_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID that represents a unique account."
+    },
+    "citizenship": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's citizenship."
+    },
+    "handoff_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: how the handoff for in-branch applications happened. Possible values: DIGITAL or NON_DIGITAL."
+    },
+    "consent_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: how consent for account opening was given. Possible values: DIGITAL_CONSENT (applicant clicked in the experience) or MANUAL_CONSENT (applicant gave consent to the employee assisting them)."
+    },
+    "account_features": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "description": "Array: list of features the applicant added to the account.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fraud_check_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: most up-to-date fraud check status. Possible values:; APPROVED; DENIED; PENDING_USER_ACTION; REFER; ERROR"
+    },
+    "fraud_check_application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an identifier for the fraud check application. Can be null."
+    },
+    "promo_code": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: promotional code entered during the application for special offers."
+    },
+    "had_manual_review": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether a human had to intervene or manually review the application."
+    },
+    "had_step_up": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user saw a step-up screen during the fraud check flow."
+    },
+    "fraud_check_started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the fraud check was started.",
+      "format": "date-time"
+    },
+    "fraud_check_decision_made_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the fraud check was completed (application approved or declined).",
+      "format": "date-time"
+    },
+    "device_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: unique identifier for the device used to start the application session."
+    },
+    "authentication_method": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the method used to authenticate the session that created the application. Possible values: sso, password."
+    },
+    "referral_code": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: referral code entered during the application (e.g., member-get-member or employee referral program). Null if no referral code was used."
+    },
+    "fraud_check_tags": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: fraud check tags associated with the application, returned as a semicolon-separated string. Null if no tags were returned."
+    },
+    "Employee": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Count of Applications"
+    }
+  }
+}

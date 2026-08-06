@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/json-schema/withclutch-hal.json",
+  "title": "Clutch HAL Data Export record",
+  "description": "Daily export of HAL AI lending assistant conversations, one row per applicant conversation. Derived from the published Clutch data dictionary at https://support.withclutch.com/support/solutions/articles/153000258790-data-exports-hal",
+  "x-provenance": {
+    "generated": "2026-08-05",
+    "method": "derived",
+    "source": "https://support.withclutch.com/support/solutions/articles/153000258790-data-exports-hal"
+  },
+  "type": "object",
+  "properties": {
+    "hal_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an ID that represents a unique conversation with an applicant."
+    },
+    "application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an ID that represents a unique application sent to the LOS. Matches the one in the lending export."
+    },
+    "application_nr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: loan number in the LOS."
+    },
+    "user_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID that represents a unique user (main applicant). Matches the one in the lending export."
+    },
+    "applicant_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's full name."
+    },
+    "user_phone": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the main applicant's phone number."
+    },
+    "conversation_started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the conversation started.",
+      "format": "date-time"
+    },
+    "hal_message_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: number of messages sent by HAL to the applicant."
+    },
+    "user_message_count": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: number of messages sent by the applicant to HAL."
+    },
+    "record_last_updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when this record was last updated.",
+      "format": "date-time"
+    }
+  }
+}

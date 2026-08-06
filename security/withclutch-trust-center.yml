@@ -1,0 +1,43 @@
+generated: '2026-08-05'
+method: searched
+probe: true
+source: https://trust.withclutch.com/
+url: https://trust.withclutch.com/
+platform: Secureframe
+certifications:
+- SOC 2 Type 2
+frameworks:
+- id: soc2-type2
+  name: SOC 2 Type 2
+  note: report period 2024-09-30 to 2025-09-29, available on request via the trust
+    center
+- id: glba
+  name: Gramm-Leach-Bliley Act (GLBA)
+- id: fcra
+  name: Fair Credit Reporting Act (FCRA)
+- id: ccpa
+  name: California Consumer Privacy Act (CCPA)
+- id: tcpa
+  name: Telephone Consumer Protection Act (TCPA)
+- id: e-sign
+  name: Electronic Signatures in Global and National Commerce Act (E-SIGN)
+documents:
+- SOC 2 Type 2 Report
+- Pentest Executive Report
+- System Description
+- Financial Statements
+- Cybersecurity Insurance
+- General Liability Insurance
+- Directors and Officers Insurance
+- Workers Compensation Insurance
+- Communication Consent & Wireless Policy
+- Form W-9
+access: documents are listed publicly; downloads are request-gated through the Secureframe
+  trust center
+evidence:
+- source: https://trust.withclutch.com/
+  http_status: 200
+  keywords: [soc 2 type 2, ccpa, tcpa, e-sign, glba, fcra, trust center]
+- source: https://withclutch.com/security/
+  http_status: 200
+  keywords: [soc 2 framework, penetration testing, encryption, sso, 2fa]

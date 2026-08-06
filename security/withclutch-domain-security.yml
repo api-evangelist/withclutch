@@ -1,0 +1,22 @@
+generated: '2026-08-05'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: withclutch.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 28 02:13:50 2026 GMT
+  hsts: false
+- host: support.withclutch.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 22 18:38:44 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+domains:
+- domain: withclutch.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

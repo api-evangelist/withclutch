@@ -42,5 +42,33 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Clutch is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
+Clutch (withclutch.com) is a US fintech that builds digital origination and lending automation
+software exclusively for credit unions — consumer loan origination, deposit and business account
+opening, an omnichannel banker workstation, an automated decisioning engine (Fastlane), targeted
+remarketing, data insights, and the HAL lending and Emma collections AI assistants, packaged as the
+Clutch Lending Automation System (LAS).
+
+## API surface
+
+Clutch publishes **no OpenAPI, AsyncAPI, GraphQL SDL, MCP manifest or agent card**. Its customer-facing
+data surface is a **File Transfer API** (and SFTP) delivering daily CSV exports. The public knowledge
+base documents the datasets and their full field dictionaries, but the File Transfer API reference
+article itself redirects to the customer support login, so no base URL, authentication scheme or
+endpoint list is publicly readable. See `x-coverage` in `apis.yml`.
+
+## What this profile captures
+
+| Artifact | What it is |
+|---|---|
+| `llms/withclutch-llms.txt` | The provider-published `/llms.txt`, saved verbatim |
+| `data-model/withclutch-data-exports.yml` | The five published data-export dictionaries (lending, account opening, funding, NACHA, HAL) + the entity graph linking them |
+| `json-schema/` | JSON Schema 2020-12 derived per dataset from those dictionaries |
+| `security/withclutch-trust-center.yml` | Secureframe trust center — SOC 2 Type 2, GLBA, FCRA, CCPA, TCPA, E-SIGN |
+| `security/withclutch-vulnerability-disclosure.yml` | Security page contact + program detail (no security.txt, no bug bounty) |
+| `security/withclutch-domain-security.yml` | TLS/HSTS/DNSSEC/CAA/SPF/DMARC probe |
+| `lifecycle/withclutch-lifecycle.yml` | Status page; no public versioning, deprecation or SLA policy |
+| `conformance/withclutch-conformance.yml` | Compliance and standards posture (incl. NACHA, MeridianLink CLF) |
+| `well-known/withclutch-well-known.yml` | Full `/.well-known/` and contract-discovery probe record (all misses, with statuses) |
+
+- https://withclutch.com/
 - https://forgeglobal.com/withclutch_stock/

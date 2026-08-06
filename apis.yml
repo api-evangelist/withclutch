@@ -1,18 +1,64 @@
 aid: withclutch
 name: Clutch
-description: 'Clutch is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Clutch (withclutch.com) is a US fintech that builds digital origination
+  and lending automation software exclusively for credit unions. The platform spans
+  consumer loan origination, deposit and business account opening, an omnichannel banker
+  workstation (Fulfillment), an automated decisioning engine (Fastlane), targeted remarketing,
+  data insights, and AI assistants — HAL for lending and Emma for collections — packaged
+  as the Clutch Lending Automation System (LAS). Clutch integrates with credit union
+  cores, loan origination systems such as MeridianLink Consumer LOS (LoansPQ), digital
+  banking platforms and decisioning vendors, and reports powering origination for roughly
+  150 credit unions including six of the ten largest in the United States. Its customer-facing
+  data surface is a File Transfer API and SFTP delivery for daily CSV exports covering
+  lending, account opening, funding, NACHA and HAL conversation datasets; the API reference
+  itself sits behind the customer support login.'
+image: https://withclutch.com/wp-content/uploads/2025/07/Clutch.svg
 url: https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
 - Company
-apis: []
+- Credit Unions
+- Lending
+- Loan Origination
+- Account Opening
+- Financial Services
+- Fintech
+- Banking
+- Data Exports
+apis:
+- name: Clutch Data Exports File Transfer API
+  description: 'Clutch delivers daily origination datasets to credit union customers
+    over either SFTP or a File Transfer API. The public knowledge base documents the
+    datasets (lending, account opening, funding, NACHA, HAL), their field-level data
+    dictionaries, the CSV format (pipe-delimited, double-quoted) and the 11:00 UTC
+    daily generation cadence with one-week retention. The File Transfer API reference
+    article itself requires a customer support login, so no base URL, authentication
+    scheme or endpoint list is publicly readable and no machine-readable spec is published.'
+  humanURL: https://support.withclutch.com/support/solutions/articles/153000254486-data-exports-api-vs-sftp-delivery
+  tags:
+  - Data Exports
+  - File Transfer
+  - Reporting
+  properties:
+  - type: DataModel
+    url: data-model/withclutch-data-exports.yml
+  - type: JSONSchema
+    url: json-schema/_index.yml
+  x-access: customer-only
+  x-evidence:
+    fetched: '2026-08-05'
+    public_overview:
+      url: https://support.withclutch.com/support/solutions/articles/153000254486-data-exports-api-vs-sftp-delivery
+      http_status: 200
+    gated_reference:
+      url: https://support.withclutch.com/support/solutions/articles/153000248800
+      http_status: 302
+      redirects_to: https://support.withclutch.com/support/login
+      error: login_required
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +66,63 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://withclutch.com/
+- type: Documentation
+  url: https://support.withclutch.com/support/solutions
+- type: Support
+  url: https://support.withclutch.com/support/home
+- type: Blog
+  url: https://withclutch.com/resources/blog/
+- type: GitHubOrganization
+  url: https://github.com/withclutch
+- type: TermsOfService
+  url: https://withclutch.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://withclutch.com/privacy-policy/
+- type: Security
+  url: https://withclutch.com/security/
+- type: StatusPage
+  url: https://status.withclutch.com/
+- type: Compliance
+  url: https://trust.withclutch.com/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/withclutch/
+- type: SecondaryMarket
   url: https://forgeglobal.com/withclutch_stock/
+- type: LLMsTxt
+  url: llms/withclutch-llms.txt
+- type: DomainSecurity
+  url: security/withclutch-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/withclutch-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/withclutch-trust-center.yml
+- type: Lifecycle
+  url: lifecycle/withclutch-lifecycle.yml
+- type: Conformance
+  url: conformance/withclutch-conformance.yml
+- type: DataModel
+  url: data-model/withclutch-data-exports.yml
+x-enrichment:
+  date: '2026-08-05'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    Clutch's public knowledge base documents a File Transfer API and publishes full field
+    dictionaries for its five daily data exports, but the File Transfer API reference article
+    itself 302s to the Freshdesk customer login (error=login_required), so no base URL,
+    authentication scheme, endpoint list or machine-readable spec is publicly readable.
+  evidence:
+    - url: https://support.withclutch.com/support/solutions/articles/153000248800
+      status: 302
+    - url: https://support.withclutch.com/support/solutions/articles/153000254486-data-exports-api-vs-sftp-delivery
+      status: 200
+    - url: https://api.clutch.partners/openapi.json
+      status: 404
+    - url: https://withclutch.com/openapi.json
+      status: 404
+  checked: '2026-08-05'

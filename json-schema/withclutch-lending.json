@@ -1,0 +1,443 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/json-schema/withclutch-lending.json",
+  "title": "Clutch Lending Data Export record",
+  "description": "Daily export of consumer loan origination sessions and applications, one row per funnel record. Derived from the published Clutch data dictionary at https://support.withclutch.com/support/solutions/articles/153000248797-data-exports-lending",
+  "x-provenance": {
+    "generated": "2026-08-05",
+    "method": "derived",
+    "source": "https://support.withclutch.com/support/solutions/articles/153000248797-data-exports-lending"
+  },
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an ID representing a unique user session. A session lasts up to 4 hours, or ends after 15 minutes of inactivity."
+    },
+    "application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an ID representing a unique application sent to the LOS."
+    },
+    "user_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID representing a unique user (the main applicant)."
+    },
+    "applicant_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's full name."
+    },
+    "applicant_email": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's email address."
+    },
+    "user_phone": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the main applicant's phone number."
+    },
+    "user_fico_score_range": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the range in which the main applicant's FICO score falls."
+    },
+    "user_income_range": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the range in which the main applicant's self-declared annual income falls."
+    },
+    "applicant_address": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's address."
+    },
+    "applicant_city": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's city."
+    },
+    "applicant_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's state."
+    },
+    "applicant_zip_code": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's zip code."
+    },
+    "applicant_employer": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's employer name."
+    },
+    "applicant_job_title": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the main applicant's job title."
+    },
+    "application_category": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the loan type the user applied for. Null if the application was dropped before selection."
+    },
+    "credit_structure": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: whether the application is for a loan or a line of credit."
+    },
+    "application_mode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: whether the application is new or a refinance of an existing deal."
+    },
+    "collateral_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the kind of collateral being used. Null if none."
+    },
+    "application_nr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the loan number in the LOS."
+    },
+    "application_amnt": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the amount the user applied for."
+    },
+    "experience_started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the application started.",
+      "format": "date-time"
+    },
+    "user_authenticated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user authenticated in the portal. Null if they didn't.",
+      "format": "date-time"
+    },
+    "application_started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user selected an application category. Null if they didn't.",
+      "format": "date-time"
+    },
+    "application_submitted_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the user submitted the application. Null if they didn't.",
+      "format": "date-time"
+    },
+    "application_confirmed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the LOS received the application. Null if it didn't.",
+      "format": "date-time"
+    },
+    "record_last_updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when this record was last updated.",
+      "format": "date-time"
+    },
+    "utm_source": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_medium": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_campaign": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_content": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "utm_term": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: part of the URL used for tracking (must be present in the Clutch URL)."
+    },
+    "accepted_tcpa_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the applicant accepted TCPA disclaimers.",
+      "format": "date-time"
+    },
+    "zest_score": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the main applicant's Zest score for that application."
+    },
+    "chance_of_approval_badge": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the badge shown to the applicant while browsing that offer. Possible values:; HIGH; LOW; MEDIUM; NOT_ENOUGH_INFORMATION"
+    },
+    "gap_offered": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user was offered the opportunity to express interest in GAP (protection product)."
+    },
+    "gap_selected": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user expressed interest in GAP (protection product)."
+    },
+    "mp_offered": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user was offered the opportunity to express interest in mechanical breakdown protection."
+    },
+    "mp_selected": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user expressed interest in mechanical breakdown protection."
+    },
+    "pp_offered": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user was offered the opportunity to express interest in payment protection."
+    },
+    "pp_selected": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether the user expressed interest in payment protection."
+    },
+    "member_nr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the main applicant's member number."
+    },
+    "citizenship": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the applicant's citizenship."
+    },
+    "referral_source": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the referral source defined in the application's URL. Matches what's sent to the LOS."
+    },
+    "origin_module": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the origin of the application. Possible values:; LENDING; ACCOUNT OPENINGThis enables calculating cross-sell from account opening to lending."
+    },
+    "fraud_check_application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an identifier for the fraud check application. Can be null."
+    },
+    "fraud_check_entity_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: an identifier for the fraud check token. Can be null."
+    },
+    "gclid": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: Google click identifier, used in the URL for tracking purposes. Can be null."
+    },
+    "disclosure_acknowledged_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the applicant accepted product-specific disclaimers (credit cards and home equity).",
+      "format": "date-time"
+    },
+    "automobile_estimated_list_price": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: for vehicle loans, the estimated list price of the vehicle."
+    },
+    "events_funnel_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a UUID representing a unique record in the export. This is the primary key for the table."
+    },
+    "application_origin": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the application's origin. Possible values:; original; loan_cross_sell; deposit_cross_sell; remarketing"
+    },
+    "device_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: unique identifier for the device used to start the application session."
+    },
+    "authentication_method": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the method used to authenticate the session that started the application. Possible values: sso, password."
+    },
+    "gap_quote": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Decimal: the GAP (Guaranteed Asset Protection) insurance premium amount quoted to the customer, in dollars."
+    },
+    "mp_quote": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Decimal: the Mechanical Protection insurance premium amount quoted to the customer, in dollars."
+    },
+    "pp_quote": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Decimal: the Payment Protection insurance premium amount quoted to the customer, in dollars."
+    },
+    "gap_plan": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the GAP plan name/description from the LOS."
+    },
+    "mp_plan": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the Mechanical Protection plan name/description from the LOS."
+    },
+    "pp_plan": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the Payment Protection plan name/description from the LOS."
+    }
+  },
+  "required": [
+    "session_id",
+    "experience_started_at",
+    "record_last_updated_at",
+    "origin_module",
+    "events_funnel_id",
+    "application_origin"
+  ]
+}

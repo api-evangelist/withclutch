@@ -1,0 +1,71 @@
+generated: '2026-08-05'
+method: searched
+source: https://trust.withclutch.com/, https://withclutch.com/security/, https://support.withclutch.com/support/solutions
+summary: 'Conformance is assessed from Clutch''s published trust center, security page
+  and public knowledge base only. No OpenAPI, AsyncAPI, GraphQL SDL or MCP manifest
+  is published, so no spec-derived conformance could be computed; the API-level rows
+  below are recorded as unknown rather than false.'
+standards:
+- id: soc2-type2
+  conforms: true
+  evidence: SOC 2 Type 2 report listed on https://trust.withclutch.com/ (period 2024-09-30
+    to 2025-09-29)
+- id: glba
+  conforms: true
+  evidence: Gramm-Leach-Bliley Act named on the Clutch trust center
+- id: fcra
+  conforms: true
+  evidence: Fair Credit Reporting Act named on the Clutch trust center
+- id: ccpa
+  conforms: true
+  evidence: California Consumer Privacy Act named on the Clutch trust center
+- id: tcpa
+  conforms: true
+  evidence: Telephone Consumer Protection Act named on the Clutch trust center
+- id: e-sign
+  conforms: true
+  evidence: E-SIGN Act named on the Clutch trust center
+- id: nacha
+  conforms: true
+  evidence: 'Clutch publishes a NACHA data export dataset with a documented field dictionary
+    (PARTNER_ID, NACHA_DOCUMENT_ID, …) at https://support.withclutch.com/support/solutions/articles/153000258789-data-exports-nacha'
+- id: meridianlink-clf
+  conforms: true
+  evidence: 'Clutch states it exchanges applications with MeridianLink Consumer LOS
+    (LoansPQ) using Common Loan Format (CLF), and consumes MeridianLink Automated Actions
+    and the External Scoring and Decisioning Framework — https://support.withclutch.com/support/solutions/articles/153000258577-los-integration-meridian-link-s-consumer-los-loanspq-'
+- id: sftp
+  conforms: true
+  evidence: SFTP is a documented delivery channel for the daily data exports
+- id: iso27001
+  conforms: false
+  evidence: not claimed on the trust center or security page
+- id: pci-dss
+  conforms: false
+  evidence: not claimed on the trust center or security page
+- id: hipaa
+  conforms: false
+  evidence: not claimed on the trust center or security page
+- id: fedramp
+  conforms: false
+  evidence: not claimed on the trust center or security page
+- id: fdx
+  conforms: false
+  evidence: no FDX / open-banking financial data exchange conformance claim found
+- id: oauth2
+  conforms: unknown
+  evidence: no public API reference; the File Transfer API authentication scheme is
+    behind the customer support login
+- id: oidc
+  conforms: unknown
+  evidence: no /.well-known/openid-configuration on any Clutch host (404 on withclutch.com,
+    404 on api.clutch.partners)
+- id: rfc9457-problem-details
+  conforms: unknown
+  evidence: no published spec or public error reference to assess
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: no /.well-known/security.txt on any Clutch host (404)
+- id: rfc8594-sunset-header
+  conforms: unknown
+  evidence: no public deprecation policy or header documentation

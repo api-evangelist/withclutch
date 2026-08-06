@@ -1,0 +1,69 @@
+generated: '2026-08-05'
+method: probed
+source: live GET of /.well-known/* on every Clutch host found in apis.yml and DNS
+summary: 'No /.well-known/ discovery document was found on any Clutch host. The marketing
+  host (WordPress) answers 404 for every path; the member application host (app.withclutch.com,
+  a Next.js app CNAMEd to production.clutch.partners) answers 307 to every /.well-known/*
+  path as part of a catch-all redirect, which is not a document; the production API
+  host (api.clutch.partners, AWS API Gateway behind Cloudflare) answers 404 JSON for
+  every anonymous path except /ping.'
+found: 0
+hosts:
+- host: https://withclutch.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://app.withclutch.com
+  note: every path returns 307 (Next.js catch-all redirect), so no document is served
+  documents:
+  - {path: /.well-known/security.txt, status: 307}
+  - {path: /.well-known/openid-configuration, status: 307}
+  - {path: /.well-known/oauth-authorization-server, status: 307}
+  - {path: /.well-known/api-catalog, status: 307}
+  - {path: /.well-known/ai-plugin.json, status: 307}
+  - {path: /.well-known/agent-card.json, status: 307}
+  - {path: /.well-known/agent.json, status: 307}
+- host: https://api.clutch.partners
+  note: 'live Clutch production API host — /ping returns 200 "Healthy Connection";
+    every other anonymous path returns 404 {"message":"Not Found"}'
+  documents:
+  - {path: /ping, status: 200}
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+contract_discovery:
+  openapi:
+  - {url: 'https://withclutch.com/openapi.json', status: 404}
+  - {url: 'https://withclutch.com/swagger.json', status: 404}
+  - {url: 'https://withclutch.com/api-docs', status: 404}
+  - {url: 'https://api.clutch.partners/openapi.json', status: 404}
+  - {url: 'https://api.clutch.partners/openapi.yaml', status: 404}
+  - {url: 'https://api.clutch.partners/swagger.json', status: 404}
+  - {url: 'https://api.clutch.partners/v1/openapi.json', status: 404}
+  - {url: 'https://api.clutch.partners/api-docs', status: 404}
+  - {url: 'https://api.clutch.partners/docs', status: 404}
+  - {url: 'https://api.clutch.partners/redoc', status: 404}
+  graphql:
+  - {url: 'https://api.clutch.partners/graphql', status: 404}
+  mcp:
+    result: no MCP server published or discoverable
+  a2a:
+    result: no agent card found on any host at either /.well-known/agent-card.json
+      or the legacy /.well-known/agent.json
+  hosts_that_do_not_resolve:
+  - api.withclutch.com
+  - docs.withclutch.com
+  - developer.withclutch.com
+  - developers.withclutch.com
+  - dev.withclutch.com
+  - partners.withclutch.com
+  - docs.clutch.partners

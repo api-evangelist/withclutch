@@ -1,0 +1,27 @@
+generated: '2026-08-05'
+method: derived
+source: https://support.withclutch.com/support/solutions (Clutch Data Exports data dictionaries)
+note: Clutch publishes no JSON Schema. These schemas are derived faithfully from the field names, declared
+  types and required flags in the public Clutch data dictionaries; every field, description and type prefix
+  comes from those articles. Nothing was invented.
+schemas:
+- file: withclutch-lending.json
+  title: Clutch Lending Data Export record
+  fields: 59
+  source: https://support.withclutch.com/support/solutions/articles/153000248797-data-exports-lending
+- file: withclutch-account-opening.json
+  title: Clutch Account Opening Data Export record
+  fields: 64
+  source: https://support.withclutch.com/support/solutions/articles/153000248799-data-exports-account-opening
+- file: withclutch-funding.json
+  title: Clutch Funding Data Export record
+  fields: 12
+  source: https://support.withclutch.com/support/solutions/articles/153000248795-data-exports-funding
+- file: withclutch-nacha.json
+  title: Clutch NACHA Data Export record
+  fields: 24
+  source: https://support.withclutch.com/support/solutions/articles/153000258789-data-exports-nacha
+- file: withclutch-hal.json
+  title: Clutch HAL Data Export record
+  fields: 10
+  source: https://support.withclutch.com/support/solutions/articles/153000258790-data-exports-hal

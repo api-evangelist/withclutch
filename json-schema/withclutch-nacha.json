@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/json-schema/withclutch-nacha.json",
+  "title": "Clutch NACHA Data Export record",
+  "description": "Daily export of generated NACHA ACH files and reversals with their eligible transactions. Derived from the published Clutch data dictionary at https://support.withclutch.com/support/solutions/articles/153000258789-data-exports-nacha",
+  "x-provenance": {
+    "generated": "2026-08-05",
+    "method": "derived",
+    "source": "https://support.withclutch.com/support/solutions/articles/153000258789-data-exports-nacha"
+  },
+  "type": "object",
+  "properties": {
+    "PARTNER_ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: partner identifier UUID."
+    },
+    "PARTNER_ALIAS": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: partner alias."
+    },
+    "NACHA_DOCUMENT_ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: document identifier UUID."
+    },
+    "NACHA_FILE_NAME": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: NACHA .txt file name."
+    },
+    "NACHA_DOCUMENT_TYPE": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: NACHA or NACHA_REVERSAL."
+    },
+    "IS_REVERSAL": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Boolean: whether this is a reversal document."
+    },
+    "ORIGINAL_NACHA_DOCUMENT_ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the UUID identifier of the original document being reverted."
+    },
+    "REVERSAL_TYPE": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: PARTIAL, FILE, or null."
+    },
+    "NACHA_GENERATED_AT": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Datetime: when the file was created.",
+      "format": "date-time"
+    },
+    "NACHA_TRANSACTION_COUNT": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Integer: total transactions in the file."
+    },
+    "NACHA_TOTAL_AMOUNT": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Decimal(13,2): total amount in the file."
+    },
+    "APPLICATION_ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: application identifier UUID."
+    },
+    "APPLICATION_NUMERIC_ID": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Integer: human-readable application identifier."
+    },
+    "APPLICATION_STATUS": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: application status."
+    },
+    "APPLICATION_CREATED_AT": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Datetime: when the application was created.",
+      "format": "date-time"
+    },
+    "MEMBER_NUMBER": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: applicant's member number."
+    },
+    "APPLICANT_FULL_NAME": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's full name."
+    },
+    "APPLICANT_EMAIL": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's email."
+    },
+    "FUNDING_CHARGE_ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: funding charge identifier UUID."
+    },
+    "FUNDING_CHARGE_AMOUNT": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Decimal(13,2): funding amount."
+    },
+    "FUNDING_CHARGE_TYPE": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: funding charge type."
+    },
+    "FUNDING_CHARGE_STATUS": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: funding charge status."
+    },
+    "NACHA_FILE_ELIGIBLE_TRANSACTION_ID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: eligible transaction identifier UUID."
+    },
+    "NACHA_FILE_ELIGIBLE_TRANSACTION_CREATED_AT": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Datetime: when the transaction was added to the NACHA file.",
+      "format": "date-time"
+    }
+  }
+}

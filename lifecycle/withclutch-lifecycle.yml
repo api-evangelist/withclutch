@@ -1,0 +1,35 @@
+generated: '2026-08-05'
+method: searched
+source: https://status.withclutch.com/
+summary: 'Clutch operates a public status page on its own domain. No public API versioning
+  policy, deprecation policy, Sunset/Deprecation header support (RFC 8594), SLA document
+  or dated API changelog is published — the API reference and any release notes sit
+  behind the customer support login, and product release news is carried as marketing
+  press releases rather than a versioned changelog.'
+status_page: https://status.withclutch.com/
+status_page_evidence:
+  url: https://status.withclutch.com/
+  http_status: 200
+  note: JS-rendered status-page application served on status.withclutch.com (Fastly-fronted);
+    component list is not readable without executing the page script
+versioning:
+  scheme: null
+  current: null
+  docs: null
+  note: no public API versioning policy found
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: no deprecation policy or RFC 8594 Sunset/Deprecation header documentation found
+sla:
+  url: null
+  uptime_target: null
+release_notes:
+  public_changelog: null
+  press_releases: https://withclutch.com/press-releases/
+  note: product launches (Clutch LAS, Fastlane, HAL, Emma) are announced as press releases,
+    not as dated API changelog entries
+data_retention:
+  data_exports: exports are generated daily at 11:00 UTC and retained for one week
+  source: https://support.withclutch.com/support/solutions/articles/153000248797-data-exports-lending
+deprecated_operations: []

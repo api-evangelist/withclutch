@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/json-schema/withclutch-funding.json",
+  "title": "Clutch Funding Data Export record",
+  "description": "Daily export of account funding transactions, including the funding provider and transaction identifiers. Derived from the published Clutch data dictionary at https://support.withclutch.com/support/solutions/articles/153000248795-data-exports-funding",
+  "x-provenance": {
+    "generated": "2026-08-05",
+    "method": "derived",
+    "source": "https://support.withclutch.com/support/solutions/articles/153000248795-data-exports-funding"
+  },
+  "type": "object",
+  "properties": {
+    "applicant_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: applicant's first and last name. Null if the user dropped-off before identifying themselves."
+    },
+    "member_nr": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: the user's member number in core. Null if the user wasn't an existing member and didn't finish the application."
+    },
+    "application_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a uuid that represents an unique account opening application."
+    },
+    "account_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: a uuid that represents an unique account."
+    },
+    "transaction_funding_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp: date and time when the account was funded.",
+      "format": "date-time"
+    },
+    "account_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: account type that the user is applying for. Null if the user dropped-off before selecting one."
+    },
+    "funding_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String:the funding method the applicant has chosen:CREDIT_CARD: credit card (Stripe);INTERNAL_ACCOUNT: transfer from existing account at the CU;ACH: transfer from existing account in another institution (Plaid);CASH: cash;LFAO: funding performed by the CU via transfer from the GL;NULL: user dropped-off before choosing a funding method."
+    },
+    "funding_amnt": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Number: amount the user decided to use to fund the account."
+    },
+    "provider_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: name of funding provider."
+    },
+    "payment_transaction_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: identifier used by the provider for the transaction."
+    },
+    "account_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: account number from Core."
+    },
+    "branch_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "String: the name of the branch where the application is sitting at."
+    }
+  }
+}
