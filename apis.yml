@@ -12,6 +12,17 @@ description: 'Clutch (withclutch.com) is a US fintech that builds digital origin
   data surface is a File Transfer API and SFTP delivery for daily CSV exports covering
   lending, account opening, funding, NACHA and HAL conversation datasets; the API reference
   itself sits behind the customer support login.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://withclutch.com/wp-content/uploads/2025/07/Clutch.svg
 url: https://raw.githubusercontent.com/api-evangelist/withclutch/refs/heads/main/apis.yml
 x-type: company
