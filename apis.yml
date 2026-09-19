@@ -44,14 +44,14 @@ created: '2026-08-05'
 modified: '2026-08-05'
 tags:
 - Company
-- Credit Unions
+- Credit Union
 - Lending
 - Loan Origination
 - Account Opening
 - Financial-Services
 - Fintech
 - Banking
-- Data Exports
+- Data Export
 tags_raw:
 - Company
 - Credit Unions
@@ -73,6 +73,10 @@ apis:
     scheme or endpoint list is publicly readable and no machine-readable spec is published.'
   humanURL: https://support.withclutch.com/support/solutions/articles/153000254486-data-exports-api-vs-sftp-delivery
   tags:
+  - Data Export
+  - File Transfer
+  - Reporting
+  tags_raw:
   - Data Exports
   - File Transfer
   - Reporting
