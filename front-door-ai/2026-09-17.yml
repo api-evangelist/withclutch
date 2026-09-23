@@ -1,0 +1,29 @@
+# Front Door AI Index — withclutch — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: withclutch
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: withclutch.com
+  final_host: withclutch.com
+  ownership: own
+  owner: withclutch
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 13
+  host_score: 13
+  density: 11.61
+  words: 1120
+  tiers:
+    agentic: 4
+    core: 9
+    model: 0
+  ambiguous: 25
+  top_terms:
+    agent: 14
+    automation: 11
+    AI: 9
+    AI agent: 2
+    AI assistant: 2
