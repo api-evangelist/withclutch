@@ -48,7 +48,7 @@ tags:
 - Lending
 - Loan Origination
 - Account Opening
-- Financial-Services
+- Financial Services
 - Fintech
 - Banking
 - Data Export
@@ -62,6 +62,7 @@ tags_raw:
 - Fintech
 - Banking
 - Data Exports
+- Financial-Services
 apis:
 - name: Clutch Data Exports File Transfer API
   description: 'Clutch delivers daily origination datasets to credit union customers
