@@ -64,33 +64,104 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Clutch (withclutch.com) is a US fintech that builds digital origination and lending automation
-software exclusively for credit unions — consumer loan origination, deposit and business account
-opening, an omnichannel banker workstation, an automated decisioning engine (Fastlane), targeted
-remarketing, data insights, and the HAL lending and Emma collections AI assistants, packaged as the
-Clutch Lending Automation System (LAS).
+Clutch (withclutch.com) is a US fintech that builds digital origination and lending automation software exclusively for credit unions. The platform spans consumer loan origination, deposit and business account opening, an omnichannel banker workstation (Fulfillment), an automated decisioning engine (Fastlane), targeted remarketing, data insights, and AI assistants — HAL for lending and Emma for collections — packaged as the Clutch Lending Automation System (LAS). Clutch integrates with credit union cores, loan origination systems such as MeridianLink Consumer LOS (LoansPQ), digital banking platforms and decisioning vendors, and reports powering origination for roughly 150 credit unions including six of the ten largest in the United States. Its customer-facing data surface is a File Transfer API and SFTP delivery for daily CSV exports covering lending, account opening, funding, NACHA and HAL conversation datasets; the API reference itself sits behind the customer support login.
 
-## API surface
+**Areas:** Company · Credit Union · Lending · Loan Origination · Account Opening · Financial Services · Fintech · Banking · Data Export
 
-Clutch publishes **no OpenAPI, AsyncAPI, GraphQL SDL, MCP manifest or agent card**. Its customer-facing
-data surface is a **File Transfer API** (and SFTP) delivering daily CSV exports. The public knowledge
-base documents the datasets and their full field dictionaries, but the File Transfer API reference
-article itself redirects to the customer support login, so no base URL, authentication scheme or
-endpoint list is publicly readable. See `x-coverage` in `apis.yml`.
+## Clutch on APIs.io
 
-## What this profile captures
+Everything profiled for Clutch is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/withclutch/](https://apis.io/providers/withclutch/)** — or go straight to one of the APIs or properties below.
 
-| Artifact | What it is |
+### APIs (1)
+
+- [Clutch Data Exports File Transfer API](https://apis.io/apis/withclutch/clutch-data-exports-file-transfer-api/) — Clutch delivers daily origination datasets to credit union customers over either SFTP or a File Transfer API. The public knowledge base documents the…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### JSON Schema (5)
+
+The data models the API reads and writes.
+
+- [Clutch Account Opening Data Export record](https://apis.io/schemas/withclutch/withclutch-account-opening/)
+- [Clutch Funding Data Export record](https://apis.io/schemas/withclutch/withclutch-funding/)
+- [Clutch HAL Data Export record](https://apis.io/schemas/withclutch/withclutch-hal/)
+- [Clutch Lending Data Export record](https://apis.io/schemas/withclutch/withclutch-lending/)
+- [Clutch NACHA Data Export record](https://apis.io/schemas/withclutch/withclutch-nacha/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Withclutch Domain Security](https://apis.io/security/withclutch/withclutch-domain-security/)
+- [Withclutch Trust Center](https://apis.io/security/withclutch/withclutch-trust-center/)
+- [Withclutch Vulnerability Disclosure](https://apis.io/security/withclutch/withclutch-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://withclutch.com/)
+- [Documentation](https://support.withclutch.com/support/solutions)
+- [Support](https://support.withclutch.com/support/home)
+- [Blog](https://withclutch.com/resources/blog/)
+- [Security](https://withclutch.com/security/)
+- [Compliance](https://trust.withclutch.com/)
+- [Terms of service](https://withclutch.com/terms-of-service/)
+- [Privacy policy](https://withclutch.com/privacy-policy/)
+- [GitHub](https://github.com/withclutch)
+- [Status](https://status.withclutch.com/)
+
+## API Evangelist rating
+
+**Kin Score 20.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
 |---|---|
-| `llms/withclutch-llms.txt` | The provider-published `/llms.txt`, saved verbatim |
-| `data-model/withclutch-data-exports.yml` | The five published data-export dictionaries (lending, account opening, funding, NACHA, HAL) + the entity graph linking them |
-| `json-schema/` | JSON Schema 2020-12 derived per dataset from those dictionaries |
-| `security/withclutch-trust-center.yml` | Secureframe trust center — SOC 2 Type 2, GLBA, FCRA, CCPA, TCPA, E-SIGN |
-| `security/withclutch-vulnerability-disclosure.yml` | Security page contact + program detail (no security.txt, no bug bounty) |
-| `security/withclutch-domain-security.yml` | TLS/HSTS/DNSSEC/CAA/SPF/DMARC probe |
-| `lifecycle/withclutch-lifecycle.yml` | Status page; no public versioning, deprecation or SLA policy |
-| `conformance/withclutch-conformance.yml` | Compliance and standards posture (incl. NACHA, MeridianLink CLF) |
-| `well-known/withclutch-well-known.yml` | Full `/.well-known/` and contract-discovery probe record (all misses, with statuses) |
+| Discoverability | 64.3 |
+| Contract quality | 2.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 16.7 |
+| Access clarity | 28.9 |
 
-- https://withclutch.com/
-- https://forgeglobal.com/withclutch_stock/
+**Agent readiness 0.0** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 19.7** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/withclutch/](https://apis.io/providers/withclutch/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Clutch: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/withclutch/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
